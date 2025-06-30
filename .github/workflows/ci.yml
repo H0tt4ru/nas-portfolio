@@ -1,0 +1,73 @@
+# .github/workflows/ci.yml
+
+name: CI Pipeline
+
+# This workflow runs on pushes to the 'main' branch and on pull requests
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # This job tests the backend
+  test-backend:
+    # Use the latest version of Ubuntu to run the job
+    runs-on: ubuntu-latest
+
+    # Define the steps for this job
+    steps:
+      # 1. Check out the code from your repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up the Go language environment
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22' # Use a recent Go version
+
+      # 3. Install the linter
+      - name: Install golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.58.0 # Use a recent linter version
+
+      # 4. Run the linter on the backend code
+      - name: Run Linter
+        run: golangci-lint run ./...
+        working-directory: ./go-backend # Use your folder name
+
+  # This job tests the frontend
+  test-frontend:
+    # Use the latest version of Ubuntu to run the job
+    runs-on: ubuntu-latest
+
+    # Define the steps for this job
+    steps:
+      # 1. Check out the code from your repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up the Node.js language environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use a recent Node.js LTS version
+          cache: 'npm'
+          cache-dependency-path: next-frontend/package-lock.json # Use your folder name
+
+      # 3. Install dependencies
+      - name: Install Dependencies
+        run: npm ci
+        working-directory: ./next-frontend # Use your folder name
+
+      # 4. Run the linter
+      - name: Run Linter
+        run: npm run lint
+        working-directory: ./next-frontend
+
+      # 5. Run the build command to ensure it compiles
+      - name: Build Project
+        run: npm run build
+        working-directory: ./next-frontend

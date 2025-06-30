@@ -1,0 +1,49 @@
+# =========================================================================
+# Node / Next.js Dependencies & Build Artifacts
+# This is the most important part for you right now.
+# =========================================================================
+# Ignore the massive node_modules folder in both the root and the frontend
+/node_modules
+/next-frontend/node_modules
+
+# Ignore Next.js build output and cache
+/next-frontend/.next/
+
+# Ignore other common Node.js files
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+.npm
+
+# =========================================================================
+# Go / Backend Files
+# =========================================================================
+# Ignore compiled Go binaries
+# If you run 'go build', it might create an executable with the same name as your folder
+/go-backend/go-backend
+*.exe
+
+# =========================================================================
+# IDE & Environment Files
+# Keep your project clean from personal editor settings
+# =========================================================================
+# IntelliJ IDEA
+.idea/
+
+# VSCode
+.vscode/
+
+# Environment variables file
+.env
+.env.local
+.env.production
+
+# =========================================================================
+# Operating System Files
+# Ignore system-specific files
+# =================================================_========================
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db

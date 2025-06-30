@@ -1,0 +1,35 @@
+{
+  "name": "nas-portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/H0tt4ru/nas-portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/H0tt4ru/nas-portfolio/issues"
+  },
+  "homepage": "https://github.com/H0tt4ru/nas-portfolio#readme",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.6.2"
+  },
+  "lint-staged": {
+    "frontend/**/*.{js,jsx,ts,tsx}": [
+      "prettier --write"
+    ],
+    "backend/**/*.go": [
+      "golangci-lint run --fix"
+    ]
+  }
+}
