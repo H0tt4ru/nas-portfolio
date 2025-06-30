@@ -31,22 +31,25 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: '1.21'
-          # Cache Go modules for faster builds
           cache-dependency-path: go-backend/go.sum
 
-      # 3. Download Go modules
-      # This step ensures all dependencies are present before linting/testing
+      # 3. Add a step to verify the Go version being used
+      - name: Display Go version
+        run: go version
+
+      # 4. Install project dependencies
       - name: Install Dependencies
-        run: go mod download
+        run: go mod tidy
 
-      # 4. Run the linter on the backend code
-      # We now call the linter directly, which is more reliable
-      - name: Run Linter
-        run: go run github.com/golangci/golangci-lint/cmd/golangci-lint@v1.58.0 run ./...
+      # 5. Manually install golangci-lint (most stable method)
+      - name: Install golangci-lint
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.58.0
+          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
 
-      # 5. (Optional but Recommended) Run unit tests
-      - name: Run Tests
-        run: go test -v ./...
+      # 6. Run the linter directly
+      - name: Run linter
+        run: golangci-lint run ./...
   # This job tests the frontend
   test-frontend:
     # Use the latest version of Ubuntu to run the job
