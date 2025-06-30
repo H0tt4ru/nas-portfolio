@@ -10,45 +10,34 @@ on:
     branches: [ "main" ]
 
 jobs:
-  # This job tests the backend
   test-backend:
-    # Use the latest version of Ubuntu to run the job
     runs-on: ubuntu-latest
 
-    # Specify the default working directory for all steps in this job
     defaults:
       run:
         working-directory: ./go-backend
 
-    # Define the steps for this job
     steps:
-      # 1. Check out the code from your repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Set up a modern and stable version of Go
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          # Use a modern Go version that matches what your linter was built with
-          go-version: '1.22.4' 
+          go-version: '1.22.4'
           cache-dependency-path: go-backend/go.sum
 
-      # 3. Display Go version for debugging
       - name: Display Go version
         run: go version
 
-      # 4. Install project dependencies
       - name: Install Dependencies
         run: go mod tidy
 
-      # 5. Manually install the LATEST version of golangci-lint
       - name: Install golangci-lint
         run: |
-          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.59.1
-          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
+          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh \
+            | sh -s -- -b /usr/local/bin v1.59.1
 
-      # 6. Run the linter
       - name: Run linter
         run: golangci-lint run ./...
   # This job tests the frontend
