@@ -2,6 +2,12 @@
 import axios from "axios";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import Hero from "@/components/Hero";
+import Projects from "@/components/Projects";
+import About from "@/components/About";
+import Blog from "@/components/Blog";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
 
 const getAiResponse = async (prompt: string) => {
 	try {
@@ -26,10 +32,25 @@ const getAiResponse = async (prompt: string) => {
 
 export default function Home() {
 	return (
-		<main className="flex flex-col">
-			<Section1 />
-			<Section2 />
-		</main>
+		<div className={`min-h-screen font-mono transition-colors duration-300`}>
+			<div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+				<motion.main
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 0.5 }}
+				>
+					<Hero />
+					<Projects />
+					<About />
+					<Blog />
+					<Section1 />
+					<Section2 />
+					<Contact />
+				</motion.main>
+
+				<Footer />
+			</div>
+		</div>
 	);
 }
 
