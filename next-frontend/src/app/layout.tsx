@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { LenisProvider } from "@/providers/LenisProvider";
 import LoadingWrapper from "@/components/LoadingScreen";
+import KeySequenceListener from "@/components/KeySequenceListener";
 
 import "./globals.css";
 import Header from "@/components/Header";
@@ -60,8 +61,10 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`antialiased`}>
 				<LoadingWrapper>
-					<Header />
-					<LenisProvider>{children}</LenisProvider>
+					<KeySequenceListener>
+						<Header />
+						<LenisProvider>{children}</LenisProvider>
+					</KeySequenceListener>
 				</LoadingWrapper>
 			</body>
 		</html>
