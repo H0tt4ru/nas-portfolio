@@ -47,11 +47,11 @@ export default function Contact() {
 					viewport={{ once: true }}
 				>
 					<h2 className="text-3xl md:text-4xl font-bold mb-4">
-						Let's Work Together
+						Let&#39;s Work Together
 					</h2>
 					<p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-						I'm always interested in new opportunities and exciting projects.
-						Let's discuss how we can bring your ideas to life.
+						I&#39;m always interested in new opportunities and exciting
+						projects. Let&#39;s discuss how we can bring your ideas to life.
 					</p>
 				</motion.div>
 
@@ -128,7 +128,8 @@ export default function Contact() {
 							<CardContent className="p-6">
 								<h4 className="font-semibold mb-2">Schedule a Call</h4>
 								<p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-									Let's discuss your project requirements and how I can help.
+									Let&#39;s discuss your project requirements and how I can
+									help.
 								</p>
 								<Button
 									variant="outline"
@@ -149,7 +150,7 @@ export default function Contact() {
 					viewport={{ once: true }}
 				>
 					<p className="text-gray-600 dark:text-gray-400 mb-6">
-						Prefer email? Drop me a line and I'll get back to you within 24
+						Prefer email? Drop me a line and I&#39;ll get back to you within 24
 						hours.
 					</p>
 					<Button
