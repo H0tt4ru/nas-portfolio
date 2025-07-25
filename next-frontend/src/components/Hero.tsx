@@ -3,8 +3,11 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { useEasterEggStore } from "@/stores/EasterEggStore";
 
 export default function Hero() {
+	const { easterEgg } = useEasterEggStore();
+
 	const containerVariants = {
 		hidden: { opacity: 0 },
 		visible: {
@@ -17,7 +20,9 @@ export default function Hero() {
 	};
 
 	return (
-		<section className="min-h-screen flex items-center justify-center px-6 pt-20">
+		<section
+			className={`min-h-screen flex items-center justify-center px-6 pt-20 ${easterEgg ? "bg-[url('/easter-egg-1.webp')] bg-cover bg-center" : ""}`}
+		>
 			<motion.div
 				className="max-w-4xl mx-auto text-center"
 				variants={containerVariants}

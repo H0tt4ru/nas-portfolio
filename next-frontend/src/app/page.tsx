@@ -1,34 +1,12 @@
 "use client";
-import axios from "axios";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
 import About from "@/components/About";
 import Blog from "@/components/Blog";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-
-const getAiResponse = async (prompt: string) => {
-	try {
-		const res = await axios.post("/api/gemini", {
-			contents: [
-				{
-					parts: [
-						{
-							text: prompt,
-						},
-					],
-				},
-			],
-		});
-		console.log("Gemini Response:", res.data);
-		return res.data;
-	} catch (err) {
-		console.error("Error from Gemini route:", err);
-		return { text: "Error fetching AI response." };
-	}
-};
 
 export default function Home() {
 	return (
@@ -37,7 +15,7 @@ export default function Home() {
 				<motion.main
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
-					transition={{ duration: 0.5 }}
+					transition={{ duration: 0.5, delay: 0.5 }}
 				>
 					<Hero />
 					<Projects />
@@ -55,8 +33,6 @@ export default function Home() {
 }
 
 function Section1() {
-	const [aiResponse, setAiResponse] = useState("Loading...");
-	const hasFetchedRef = useRef(false);
 	const textRef = useRef<HTMLHeadingElement>(null);
 
 	// Track scroll progress specifically for the text element
@@ -71,17 +47,6 @@ function Section1() {
 		[0, 0.5, 1],
 		[100, 0, -100] // Starts below, centers when section is middle of viewport, moves up
 	);
-
-	useEffect(() => {
-		if (hasFetchedRef.current) return;
-		hasFetchedRef.current = true;
-
-		getAiResponse(
-			"Send me a greeting in a brain rot tone use https://pdftobrainrot.org/blog/brain-rot-words-explained-from-oxford-dictionary-to-tiktok-trends. One sentence. Maximum 6 words. No context needed."
-		).then((data) => {
-			setAiResponse(data.text || JSON.stringify(data));
-		});
-	}, []);
 
 	return (
 		<section
@@ -107,7 +72,7 @@ function Section1() {
 					ease: [0.23, 1, 0.32, 1], // Custom easing
 				}}
 			>
-				{aiResponse}
+				Test
 			</motion.h1>
 
 			{/* Scroll indicator */}

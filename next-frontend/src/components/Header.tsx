@@ -15,7 +15,7 @@ export default function ScrollAwareHeader() {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
 
-			if (currentScrollY > lastScrollY && currentScrollY > 50) {
+			if (currentScrollY > lastScrollY && currentScrollY > 0) {
 				setShowHeader(false);
 			} else if (currentScrollY < lastScrollY) {
 				setShowHeader(true);
@@ -44,7 +44,7 @@ export default function ScrollAwareHeader() {
 				animate={{ y: showHeader ? 0 : -100 }}
 				exit={{ y: -100 }}
 				transition={{ duration: 0.3, ease: "easeInOut" }}
-				className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 font-mono"
+				className="fixed top-0 left-0 right-0 z-40 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 font-mono"
 			>
 				<div className="max-w-6xl mx-auto px-6 py-4">
 					<div className="flex items-center justify-between">
@@ -52,7 +52,7 @@ export default function ScrollAwareHeader() {
 							whileHover={{ scale: 1.05 }}
 							className="text-xl font-bold"
 						>
-							<span className="text-blue-600 dark:text-blue-400">NAS27</span>
+							<span className="text-blue-600 dark:text-blue-400">NAS</span>
 						</motion.div>
 
 						<nav className="hidden md:flex items-center space-x-8">
