@@ -1,9 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useEasterEggStore } from "@/stores/EasterEggStore";
+import { useEasterEggStore } from "@/stores/easterEgg";
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+export default function EasterEggProvider({
+	children,
+}: {
+	children: React.ReactNode;
+}) {
 	const [inputBuffer, setInputBuffer] = useState("");
 	const secretCode = "eldenring";
 
