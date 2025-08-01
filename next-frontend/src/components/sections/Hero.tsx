@@ -1,84 +1,298 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
-import { useEasterEggStore } from '@/stores/easterEgg';
+import Image from 'next/image';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from 'react';
+import { useTheme } from 'next-themes';
+
+// Register GSAP plugins immediately
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
-    const { easterEgg } = useEasterEggStore();
+    const { resolvedTheme } = useTheme();
+    const heroRef = useRef<HTMLDivElement>(null);
+    const layerRefs = useRef<(HTMLImageElement | null)[]>([]);
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2,
-                delayChildren: 0.3,
-            },
-        },
-    };
+    // Determine theme folder and layer IDs
+    const themeFolder = resolvedTheme === 'dark' ? 'night' : 'sunny';
+    const themeSuffix = resolvedTheme === 'dark' ? 'night' : 'sunny';
+
+    useEffect(() => {
+        // Wait for GSAP to be ready and DOM elements to be available
+        const initializeAnimations = () => {
+            if (!heroRef.current || layerRefs.current.some((r) => !r)) {
+                // Retry if elements aren't ready
+                requestAnimationFrame(initializeAnimations);
+                return;
+            }
+
+            // GSAP is ready and elements are available
+            console.log('GSAP ready, initializing animations...');
+
+            gsap.set(layerRefs.current[0], {
+                yPercent: +50,
+            });
+            gsap.set(layerRefs.current[1], {
+                yPercent: +50,
+            });
+            gsap.set(layerRefs.current[2], {
+                yPercent: +50,
+            });
+            gsap.set(layerRefs.current[3], {
+                yPercent: +50,
+            });
+            gsap.set(layerRefs.current[4], {
+                yPercent: +50,
+            });
+            gsap.set(layerRefs.current[5], {
+                yPercent: +50,
+            });
+            gsap.set(layerRefs.current[6], {
+                yPercent: +50,
+            });
+            gsap.set(layerRefs.current[7], {
+                yPercent: +50,
+            });
+            gsap.set(layerRefs.current[8], {
+                yPercent: +50,
+            });
+
+            gsap.to('#hero-text', {
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: '50% top',
+                    scrub: true,
+                },
+                ease: 'none',
+                yPercent: +100,
+            });
+
+            // GSAP animations - Dynamic IDs based on theme
+            gsap.to(`#layer-1-${themeSuffix}`, {
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: '50% top',
+                    scrub: true,
+                },
+                ease: 'none',
+                yPercent: +100,
+            });
+
+            gsap.to(`#layer-2-${themeSuffix}`, {
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: '50% top',
+                    scrub: true,
+                },
+                ease: 'none',
+                yPercent: +101,
+            });
+
+            gsap.to(`#layer-3-${themeSuffix}`, {
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: '50% top',
+                    scrub: true,
+                },
+                ease: 'none',
+                yPercent: +103,
+            });
+
+            gsap.to(`#layer-4-${themeSuffix}`, {
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: '50% top',
+                    scrub: true,
+                },
+                ease: 'none',
+                yPercent: +106,
+            });
+
+            gsap.to(`#layer-5-${themeSuffix}`, {
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: '50% top',
+                    scrub: true,
+                },
+                ease: 'none',
+                yPercent: +110,
+            });
+
+            gsap.to(`#layer-6-${themeSuffix}`, {
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: '50% top',
+                    scrub: true,
+                },
+                ease: 'none',
+                yPercent: +115,
+            });
+
+            gsap.to(`#layer-7-${themeSuffix}`, {
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: '50% top',
+                    scrub: true,
+                },
+                ease: 'none',
+                yPercent: +121,
+            });
+
+            gsap.to(`#layer-8-${themeSuffix}`, {
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: '50% top',
+                    scrub: true,
+                },
+                ease: 'none',
+                yPercent: +128,
+            });
+
+            gsap.to(`#layer-9-${themeSuffix}`, {
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: '50% top',
+                    scrub: true,
+                },
+                ease: 'none',
+                yPercent: +136,
+            });
+        };
+
+        // Start initialization after a frame to ensure DOM is ready
+        requestAnimationFrame(initializeAnimations);
+
+        // Cleanup function
+        return () => {
+            ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        };
+    }, [themeSuffix]); // Re-run when theme changes
 
     return (
-        <section
-            className={`text-fluid-xl bg-test flex min-h-screen items-center justify-center px-6 pt-20 ${easterEgg ? "bg-[url('/easter-egg-1.webp')] bg-cover bg-center" : ''}`}
-        >
-            <motion.div
-                className="mx-auto max-w-4xl text-center"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-            >
-                <motion.div className="mb-6">
-                    <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                        Hello, I&#39;m
-                    </span>
-                </motion.div>
-
-                <motion.h1 className="mb-6 text-4xl leading-tight font-bold md:text-6xl lg:text-7xl">
-                    Nathan Angelo Stenlie
-                </motion.h1>
-
-                <motion.p className="mx-auto mb-8 max-w-2xl text-xl text-gray-600 md:text-2xl dark:text-gray-400">
-                    I build for the web. Full-stack developer crafting digital experiences with
-                    modern technologies.
-                </motion.p>
-
-                <motion.div className="mb-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <Button size="lg" className="font-mono">
-                        View My Work
-                    </Button>
-                    <Button variant="outline" size="lg" className="bg-transparent font-mono">
-                        Get In Touch
-                    </Button>
-                </motion.div>
-
-                <motion.div className="flex items-center justify-center space-x-6">
-                    {[
-                        { icon: Github, href: '#', label: 'GitHub' },
-                        { icon: Linkedin, href: '#', label: 'LinkedIn' },
-                        { icon: Mail, href: '#', label: 'Email' },
-                    ].map(({ icon: Icon, href, label }) => (
-                        <motion.a
-                            key={label}
-                            href={href}
-                            className="rounded-full bg-gray-100 p-3 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
-                            whileHover={{ scale: 1.1, y: -2 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <Icon className="h-5 w-5" />
-                        </motion.a>
-                    ))}
-                </motion.div>
-
-                <motion.div
-                    className="absolute bottom-8 left-1/2 -translate-x-1/2 transform"
-                    animate={{ y: [0, 10, 0] }}
-                    transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+        <section id="hero" className="relative h-[200vh] overflow-hidden" ref={heroRef}>
+            <div className="sticky top-0 h-screen">
+                <Image
+                    src={`/parallax/${themeFolder}/layer-9-${themeSuffix}.webp`}
+                    alt={`layer 9 ${themeSuffix}`}
+                    fill
+                    className="object-cover"
+                    id={`layer-9-${themeSuffix}`}
+                    ref={(el) => {
+                        layerRefs.current[8] = el;
+                    }}
+                />
+                <Image
+                    src={`/parallax/${themeFolder}/layer-8-${themeSuffix}.webp`}
+                    alt={`layer 8 ${themeSuffix}`}
+                    fill
+                    className="object-cover"
+                    id={`layer-8-${themeSuffix}`}
+                    ref={(el) => {
+                        layerRefs.current[7] = el;
+                    }}
+                />
+                <Image
+                    src={`/parallax/${themeFolder}/layer-7-${themeSuffix}.webp`}
+                    alt={`layer 7 ${themeSuffix}`}
+                    fill
+                    className="object-cover"
+                    id={`layer-7-${themeSuffix}`}
+                    ref={(el) => {
+                        layerRefs.current[6] = el;
+                    }}
+                />
+                <Image
+                    src={`/parallax/${themeFolder}/layer-6-${themeSuffix}.webp`}
+                    alt={`layer 6 ${themeSuffix}`}
+                    fill
+                    className="object-cover"
+                    id={`layer-6-${themeSuffix}`}
+                    ref={(el) => {
+                        layerRefs.current[5] = el;
+                    }}
+                />
+                <Image
+                    src={`/parallax/${themeFolder}/layer-5-${themeSuffix}.webp`}
+                    alt={`layer 5 ${themeSuffix}`}
+                    fill
+                    className="object-cover"
+                    id={`layer-5-${themeSuffix}`}
+                    ref={(el) => {
+                        layerRefs.current[4] = el;
+                    }}
+                />
+                <Image
+                    src={`/parallax/${themeFolder}/layer-4-${themeSuffix}.webp`}
+                    alt={`layer 4 ${themeSuffix}`}
+                    fill
+                    className="object-cover"
+                    id={`layer-4-${themeSuffix}`}
+                    ref={(el) => {
+                        layerRefs.current[3] = el;
+                    }}
+                />
+                <div
+                    className="absolute inset-0 flex flex-col items-center justify-center text-center"
+                    id="hero-text"
                 >
-                    <ArrowDown className="h-6 w-6 text-gray-400" />
-                </motion.div>
-            </motion.div>
+                    <div className="mb-6">
+                        <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                            Hello, I&apos;m
+                        </span>
+                    </div>
+
+                    <h1 className="mb-6 text-4xl leading-tight font-bold text-gray-900 md:text-6xl lg:text-7xl dark:text-white">
+                        Nathan Angelo Stenlie
+                    </h1>
+
+                    <p className="mx-auto mb-8 max-w-2xl text-xl text-gray-600 md:text-2xl dark:text-gray-400">
+                        I build for the web. Full-stack developer crafting digital experiences with
+                        modern technologies.
+                    </p>
+                </div>
+                <Image
+                    src={`/parallax/${themeFolder}/layer-3-${themeSuffix}.webp`}
+                    alt={`layer 3 ${themeSuffix}`}
+                    fill
+                    className="object-cover"
+                    id={`layer-3-${themeSuffix}`}
+                    ref={(el) => {
+                        layerRefs.current[2] = el;
+                    }}
+                />
+
+                <Image
+                    src={`/parallax/${themeFolder}/layer-2-${themeSuffix}.webp`}
+                    alt={`layer 2 ${themeSuffix}`}
+                    fill
+                    className="object-cover"
+                    id={`layer-2-${themeSuffix}`}
+                    ref={(el) => {
+                        layerRefs.current[1] = el;
+                    }}
+                />
+                <Image
+                    src={`/parallax/${themeFolder}/layer-1-${themeSuffix}.webp`}
+                    alt={`layer 1 ${themeSuffix}`}
+                    fill
+                    className="object-cover"
+                    id={`layer-1-${themeSuffix}`}
+                    ref={(el) => {
+                        layerRefs.current[0] = el;
+                    }}
+                />
+            </div>
         </section>
     );
 }

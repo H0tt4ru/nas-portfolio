@@ -15,7 +15,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en" suppressHydrationWarning={true}>
             <head></head>
-            <body className="overflow-x-hidden bg-zinc-50 font-mono text-zinc-900 antialiased transition-colors duration-100 dark:bg-zinc-900 dark:text-zinc-50">
+            <body className="overflow-x-hidden bg-zinc-50 font-mono text-zinc-900 antialiased transition-colors duration-500 ease-in-out dark:bg-zinc-900 dark:text-zinc-50">
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                     <AppLoader>
                         <LenisProvider>
