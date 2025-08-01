@@ -13,10 +13,10 @@ export default function Header() {
     const [lastScrollY, setLastScrollY] = useState(0);
     const [mounted, setMounted] = useState(false);
 
-    // Theme hook
-    const { theme, setTheme } = useTheme();
+    // Theme hook - GET RESOLVED THEME
+    const { theme, setTheme, resolvedTheme } = useTheme();
 
-    // Smooth scroll hook - NOW WORKS LIKE YOUR ORIGINAL!
+    // Smooth scroll hook
     const { scrollTo, scrollToTop } = useSmoothScroll();
 
     // Prevent hydration mismatch
@@ -41,9 +41,9 @@ export default function Header() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [lastScrollY]);
 
-    // Now this works EXACTLY like your original function!
+    // Scroll to section
     const handleScrollToSection = (id: string) => {
-        scrollTo(id); // ← PURE CALL, no forced options
+        scrollTo(id);
     };
 
     // Toggle theme
@@ -51,9 +51,29 @@ export default function Header() {
         setTheme(theme === 'dark' ? 'light' : 'dark');
     };
 
+    // GET ACTUAL THEME - THIS IS THE FIX!
+    const getActualTheme = () => {
+        if (!mounted) return 'light'; // Fallback during hydration
+
+        // If theme is 'system', use resolvedTheme
+        // Otherwise use the selected theme
+        return theme === 'system' ? resolvedTheme : theme;
+    };
+
+    // Get icon based on ACTUAL theme (not just theme setting)
     const getThemeIcon = () => {
         if (!mounted) return <Sun className="h-5 w-5" />;
-        return theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />;
+
+        const actualTheme = getActualTheme();
+        return actualTheme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />;
+    };
+
+    // Get accessible label
+    const getThemeLabel = () => {
+        if (!mounted) return 'Toggle theme';
+
+        const actualTheme = getActualTheme();
+        return actualTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
     };
 
     return (
@@ -74,7 +94,7 @@ export default function Header() {
                                 className="cursor-pointer text-xl font-bold text-gray-900 dark:text-zinc-50"
                                 onClick={() => scrollToTop()}
                             >
-                                <span className="text-black dark:text-zinc-50">NAS</span>
+                                <span className="text-blue-600 dark:text-blue-400">NAS</span>
                             </motion.div>
 
                             {/* Desktop Navigation */}
@@ -94,15 +114,17 @@ export default function Header() {
                                 ))}
                             </nav>
 
-                            {/* Theme Toggle Button */}
+                            {/* Theme Toggle Button - FIXED SYSTEM DETECTION */}
                             <Button
                                 variant="ghost"
                                 size="icon"
                                 className="ml-4 text-gray-900 transition-colors duration-200 hover:bg-gray-100 dark:text-zinc-50 dark:hover:bg-gray-800"
                                 onClick={toggleTheme}
+                                aria-label={getThemeLabel()}
+                                title={getThemeLabel()}
                             >
                                 <motion.div
-                                    key={theme}
+                                    key={`${theme}-${resolvedTheme}`} // Re-animate when either changes
                                     initial={{ scale: 0.8, rotate: -90 }}
                                     animate={{ scale: 1, rotate: 0 }}
                                     transition={{ duration: 0.3 }}
