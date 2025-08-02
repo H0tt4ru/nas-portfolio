@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 export default function AppLoader({ children }: Readonly<{ children: React.ReactNode }>) {
     const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsLoading(false);
@@ -26,13 +27,23 @@ export default function AppLoader({ children }: Readonly<{ children: React.React
 
     return (
         <>
-            {isLoading && (
-                <AnimatePresence mode="wait">
+            <AnimatePresence
+                mode="wait"
+                onExitComplete={() => console.log('Exit animation complete')}
+            >
+                {isLoading && (
                     <motion.div
+                        key="loader" // Add unique key
                         initial={{ opacity: 1 }}
                         animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5 }}
+                        exit={{
+                            opacity: 0,
+                            scale: 1, // Optional: slight scale for better effect
+                        }}
+                        transition={{
+                            duration: 0.5, // Longer duration for smoother exit
+                            ease: 'easeInOut',
+                        }}
                         className="fixed z-50 flex h-screen w-screen items-center justify-center overflow-hidden bg-zinc-50 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-50"
                     >
                         <div className="coffee relative">
@@ -46,7 +57,6 @@ export default function AppLoader({ children }: Readonly<{ children: React.React
                                     key={idx}
                                     initial={{ y: 20, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
-                                    exit={{ y: -20, opacity: 0 }}
                                     transition={{
                                         duration: 0.3,
                                         ease: 'backInOut',
@@ -58,9 +68,19 @@ export default function AppLoader({ children }: Readonly<{ children: React.React
                             ))}
                         </h1>
                     </motion.div>
-                </AnimatePresence>
+                )}
+            </AnimatePresence>
+
+            {/* Render children outside AnimatePresence for immediate display */}
+            {!isLoading && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                    {children}
+                </motion.div>
             )}
-            {!isLoading && children}
         </>
     );
 }

@@ -55,7 +55,7 @@ export default function Hero() {
                 yPercent: +50,
             });
             gsap.set(layerRefs.current[8], {
-                yPercent: +50,
+                yPercent: 0,
             });
 
             gsap.to('#hero-text', {
@@ -166,7 +166,7 @@ export default function Hero() {
                     scrub: true,
                 },
                 ease: 'none',
-                yPercent: +136,
+                yPercent: +85,
             });
         };
 
@@ -191,6 +191,7 @@ export default function Hero() {
                     ref={(el) => {
                         layerRefs.current[8] = el;
                     }}
+                    quality={100}
                 />
                 <Image
                     src={`/parallax/${themeFolder}/layer-8-${themeSuffix}.webp`}
@@ -201,6 +202,7 @@ export default function Hero() {
                     ref={(el) => {
                         layerRefs.current[7] = el;
                     }}
+                    quality={100}
                 />
                 <Image
                     src={`/parallax/${themeFolder}/layer-7-${themeSuffix}.webp`}
@@ -211,6 +213,7 @@ export default function Hero() {
                     ref={(el) => {
                         layerRefs.current[6] = el;
                     }}
+                    quality={100}
                 />
                 <Image
                     src={`/parallax/${themeFolder}/layer-6-${themeSuffix}.webp`}
@@ -221,6 +224,7 @@ export default function Hero() {
                     ref={(el) => {
                         layerRefs.current[5] = el;
                     }}
+                    quality={100}
                 />
                 <Image
                     src={`/parallax/${themeFolder}/layer-5-${themeSuffix}.webp`}
@@ -231,6 +235,7 @@ export default function Hero() {
                     ref={(el) => {
                         layerRefs.current[4] = el;
                     }}
+                    quality={100}
                 />
                 <Image
                     src={`/parallax/${themeFolder}/layer-4-${themeSuffix}.webp`}
@@ -241,6 +246,7 @@ export default function Hero() {
                     ref={(el) => {
                         layerRefs.current[3] = el;
                     }}
+                    quality={100}
                 />
                 <div
                     className="absolute inset-0 flex flex-col items-center justify-center text-center"
@@ -270,6 +276,8 @@ export default function Hero() {
                     ref={(el) => {
                         layerRefs.current[2] = el;
                     }}
+                    quality={100}
+                    unoptimized={true}
                 />
 
                 <Image
@@ -281,6 +289,8 @@ export default function Hero() {
                     ref={(el) => {
                         layerRefs.current[1] = el;
                     }}
+                    quality={100}
+                    unoptimized={true}
                 />
                 <Image
                     src={`/parallax/${themeFolder}/layer-1-${themeSuffix}.webp`}
@@ -291,6 +301,8 @@ export default function Hero() {
                     ref={(el) => {
                         layerRefs.current[0] = el;
                     }}
+                    quality={100}
+                    unoptimized={true}
                 />
             </div>
         </section>
