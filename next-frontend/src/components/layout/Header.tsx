@@ -8,7 +8,7 @@ import { useTheme } from 'next-themes';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 
 export default function Header() {
-    const navItems = ['Projects', 'About', 'Blog', 'Contact'];
+    const navItems = ['Projects', 'About', 'Experience', 'Contact'];
     const [showHeader, setShowHeader] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [mounted, setMounted] = useState(false);

@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 
 const skills = {
-	Frontend: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
-	Backend: ["Python", "Go", "Java", "Node.js", "PostgreSQL"],
-	Tools: ["Git", "Docker", "AWS", "Vercel", "Figma"],
+	Backend: ["Go", "Gin", "GoFiber", "Java", "Spring Boot", "Node.js", "Express.js"],
+	"Frontend & Mobile": ["Next.js", "Flutter", "Dart"],
+	Tools: ["Git", "PostgreSQL", "Redis", "Docker", "Jenkins"],
 };
 
 const facts = [
-	"🌍 Based in Norway, working globally",
-	"☕ Powered by coffee and clean code",
-	"🎮 Gaming enthusiast in spare time",
-	"📚 Always learning new technologies",
+	"Informatics student at UMN — GPA 3.79",
+	"Based in Tangerang, Indonesia",
+	"1-year internship in banking software (HiBank)",
+	"Solana Frontier Hackathon 2026 participant",
 ];
 
 export default function About() {
@@ -32,8 +32,9 @@ export default function About() {
 				>
 					<h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
 					<p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-						Full-stack developer with a passion for creating efficient, scalable
-						solutions and beautiful user experiences.
+						Informatics student and software developer based in Tangerang,
+						Indonesia — building backend systems, full-stack platforms, and
+						mobile applications.
 					</p>
 				</motion.div>
 
@@ -47,21 +48,23 @@ export default function About() {
 						<h3 className="text-2xl font-bold mb-6">My Story</h3>
 						<div className="space-y-4 text-gray-600 dark:text-gray-400">
 							<p>
-								I&#39;m Nathan Angelo Stenlie, a full-stack developer who loves
-								building things for the web. With expertise spanning both
-								frontend and backend development, I create comprehensive digital
-								solutions that solve real-world problems.
+								I&#39;m Nathan Angelo Stenlie, an Informatics student at
+								Universitas Multimedia Nusantara with a strong focus on backend
+								engineering and full-stack development. I&#39;m drawn to building
+								software that works at real scale — systems that real people
+								depend on.
 							</p>
 							<p>
-								My journey in development has led me to work with a diverse
-								range of technologies, from modern React applications to robust
-								backend systems. I believe in writing clean, maintainable code
-								and staying up-to-date with the latest industry trends.
+								Most recently, I spent a year as a Junior Backend Developer
+								Intern at PT Infosys Solusi Terpadu, contributing to HiBank — a
+								mobile banking app with over 100,000 active users — as part of a
+								27-person engineering team. I also built a school scheduling
+								engine that cut planning time from days to under two minutes, and
+								competed in the Solana Frontier Hackathon 2026.
 							</p>
 							<p>
-								When I&#39;m not coding, you&#39;ll find me exploring new
-								technologies, contributing to open-source projects, or enjoying
-								the beautiful Norwegian landscape.
+								I care about clean, well-tested code and enjoy working in teams
+								where technical depth and product thinking go hand in hand.
 							</p>
 						</div>
 

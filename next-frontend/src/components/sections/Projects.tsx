@@ -9,82 +9,72 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github } from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
 
-const projects = [
+interface Project {
+	id: number;
+	title: string;
+	type: string;
+	badge?: string;
+	description: string;
+	highlight?: string;
+	tech: string[];
+	repoUrl?: string;
+	demoUrl?: string;
+	storeUrl?: string;
+}
+
+const projects: Project[] = [
 	{
 		id: 1,
-		title: "E-Commerce Platform",
-		description:
-			"Full-stack e-commerce solution with payment integration, inventory management, and admin dashboard.",
-		tech: ["Next.js", "TypeScript", "PostgreSQL", "Stripe"],
-		image: "/placeholder.svg?height=300&width=500",
-		liveUrl: "#",
-		repoUrl: "#",
+		title: "School Management System",
 		type: "Full-Stack",
+		description:
+			"A school management platform serving 16 active classes and 28 teachers, covering scheduling, attendance, and administrative workflows.",
+		highlight:
+			"Scheduling engine cut semester planning from 3–10 days to under 2 minutes using a hybrid Genetic Algorithm + Simulated Annealing approach.",
+		tech: ["Go", "Gin", "Flutter", "Dart"],
 	},
 	{
 		id: 2,
-		title: "Task Management API",
-		description:
-			"RESTful API for task management with authentication, real-time updates, and team collaboration features.",
-		tech: ["Go", "PostgreSQL", "Redis", "WebSocket"],
-		image: "/placeholder.svg?height=300&width=500",
-		liveUrl: "#",
-		repoUrl: "#",
+		title: "HiBank",
 		type: "Backend",
+		badge: "Internship",
+		description:
+			"Contributed backend development for a mobile banking app with 100,000+ active users as part of a 27-person engineering team.",
+		tech: ["Java", "Spring Boot", "PostgreSQL", "Redis"],
+		storeUrl:
+			"https://play.google.com/store/apps/details?id=com.hibank.mobile&hl=id&pli=1",
 	},
 	{
 		id: 3,
-		title: "Portfolio Website",
+		title: "Oryon",
+		type: "Blockchain",
+		badge: "Hackathon",
 		description:
-			"Responsive portfolio website for a creative agency with smooth animations and CMS integration.",
-		tech: ["React", "Tailwind CSS", "Framer Motion", "Sanity"],
-		image: "/placeholder.svg?height=300&width=500",
-		liveUrl: "#",
-		repoUrl: "#",
-		type: "Frontend",
-	},
-	{
-		id: 4,
-		title: "Data Analytics Dashboard",
-		description:
-			"Real-time analytics dashboard for client with interactive charts and data visualization.",
-		tech: ["Python", "FastAPI", "React", "D3.js"],
-		image: "/placeholder.svg?height=300&width=500",
-		liveUrl: "#",
-		repoUrl: "#",
-		type: "Client Work",
-	},
-	{
-		id: 5,
-		title: "Mobile Banking App",
-		description:
-			"Secure mobile banking application with biometric authentication and transaction management.",
-		tech: ["Java", "Spring Boot", "PostgreSQL", "JWT"],
-		image: "/placeholder.svg?height=300&width=500",
-		liveUrl: "#",
-		repoUrl: "#",
-		type: "Full-Stack",
+			"A Web3-based loyalty platform enabling users to earn and redeem rewards across multiple merchants within a single decentralized ecosystem, built at Solana Frontier Hackathon 2026.",
+		tech: ["Solana", "Rust", "Next.js", "TypeScript"],
+		repoUrl: "https://github.com/oryon-solana/oryon-smart-contract",
+		demoUrl: "https://oryon-web.vercel.app/",
 	},
 ];
 
-export default function Projects() {
-	const containerVariants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.1,
-			},
-		},
-	};
+const containerVariants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: { staggerChildren: 0.12 },
+	},
+};
 
+const itemVariants = {
+	hidden: { opacity: 0, y: 24 },
+	visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
+export default function Projects() {
 	return (
-		<section
-			id="projects"
-			className="py-20 px-6"
-		>
+		<section id="projects" className="py-20 px-6">
 			<div className="max-w-6xl mx-auto">
 				<motion.div
 					className="text-center mb-16"
@@ -97,8 +87,8 @@ export default function Projects() {
 						Featured Projects
 					</h2>
 					<p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-						A selection of projects showcasing my expertise in full-stack
-						development, from frontend interfaces to backend systems.
+						A selection of work spanning backend systems, mobile apps, and
+						blockchain — from internships to hackathons.
 					</p>
 				</motion.div>
 
@@ -110,57 +100,103 @@ export default function Projects() {
 					viewport={{ once: true }}
 				>
 					{projects.map((project) => (
-						<motion.div key={project.id}>
-							<Card className="h-full group hover:shadow-lg transition-shadow duration-300">
-								<div className="relative overflow-hidden rounded-t-lg">
-									<img
-										src={project.image || "/placeholder.svg"}
-										alt={project.title}
-										className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-									/>
-									<div className="absolute top-4 left-4">
+						<motion.div
+							key={project.id}
+							variants={itemVariants}
+							className="h-full"
+						>
+							<Card className="h-full flex flex-col group hover:shadow-lg transition-shadow duration-300">
+								<CardHeader>
+									<div className="flex items-center gap-2 mb-2">
 										<span className="px-2 py-1 text-xs bg-blue-600 text-white rounded">
 											{project.type}
 										</span>
+										{project.badge && (
+											<span className="px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 rounded">
+												{project.badge}
+											</span>
+										)}
 									</div>
-								</div>
-
-								<CardHeader>
 									<CardTitle className="text-lg">{project.title}</CardTitle>
 									<CardDescription className="text-sm">
 										{project.description}
 									</CardDescription>
 								</CardHeader>
 
-								<CardContent>
-									<div className="flex flex-wrap gap-2 mb-4">
-										{project.tech.map((tech) => (
-											<span
-												key={tech}
-												className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-800 rounded"
-											>
-												{tech}
-											</span>
-										))}
-									</div>
+								<CardContent className="flex flex-col flex-1 gap-4">
+									{project.highlight && (
+										<p className="text-xs text-gray-600 dark:text-gray-400 border-l-2 border-blue-500 pl-3">
+											{project.highlight}
+										</p>
+									)}
 
-									<div className="flex gap-2">
-										<Button
-											size="sm"
-											variant="outline"
-											className="flex-1 bg-transparent"
-										>
-											<ExternalLink className="h-4 w-4 mr-2" />
-											Live Demo
-										</Button>
-										<Button
-											size="sm"
-											variant="outline"
-											className="flex-1 bg-transparent"
-										>
-											<Github className="h-4 w-4 mr-2" />
-											Code
-										</Button>
+									<div className="mt-auto flex flex-col gap-3">
+										<div className="flex flex-wrap gap-2">
+											{project.tech.map((tech) => (
+												<span
+													key={tech}
+													className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-800 rounded"
+												>
+													{tech}
+												</span>
+											))}
+										</div>
+
+										{(project.repoUrl || project.demoUrl || project.storeUrl) && (
+											<div className="flex gap-2">
+												{project.repoUrl && (
+													<Button
+														size="sm"
+														variant="outline"
+														className="flex-1 bg-transparent"
+														asChild
+													>
+														<a
+															href={project.repoUrl}
+															target="_blank"
+															rel="noopener noreferrer"
+														>
+															<Github className="h-4 w-4 mr-2" />
+															Code
+														</a>
+													</Button>
+												)}
+												{project.demoUrl && (
+													<Button
+														size="sm"
+														variant="outline"
+														className="flex-1 bg-transparent"
+														asChild
+													>
+														<a
+															href={project.demoUrl}
+															target="_blank"
+															rel="noopener noreferrer"
+														>
+															<ExternalLink className="h-4 w-4 mr-2" />
+															Website
+														</a>
+													</Button>
+												)}
+												{project.storeUrl && (
+													<Button
+														size="sm"
+														variant="outline"
+														className="flex-1 bg-transparent"
+														asChild
+													>
+														<a
+															href={project.storeUrl}
+															target="_blank"
+															rel="noopener noreferrer"
+														>
+															<ExternalLink className="h-4 w-4 mr-2" />
+															Play Store
+														</a>
+													</Button>
+												)}
+											</div>
+										)}
 									</div>
 								</CardContent>
 							</Card>

@@ -9,25 +9,25 @@ const contactMethods = [
 	{
 		icon: Mail,
 		label: "Email",
-		value: "nathan@nas27.dev",
-		href: "mailto:nathan@nas27.dev",
+		value: "stenlieangelonathan@gmail.com",
+		href: "mailto:stenlieangelonathan@gmail.com",
 	},
 	{
 		icon: Github,
 		label: "GitHub",
-		value: "@NAS27",
-		href: "https://github.com",
+		value: "@H0tt4ru",
+		href: "https://github.com/H0tt4ru",
 	},
 	{
 		icon: Linkedin,
 		label: "LinkedIn",
 		value: "Nathan Angelo Stenlie",
-		href: "https://linkedin.com",
+		href: "https://www.linkedin.com/in/nathanangelostenlie/",
 	},
 	{
 		icon: MapPin,
 		label: "Location",
-		value: "Norway",
+		value: "Tangerang, Indonesia",
 		href: null,
 	},
 ];
@@ -156,9 +156,12 @@ export default function Contact() {
 					<Button
 						size="lg"
 						className="font-mono"
+						asChild
 					>
-						<Mail className="h-5 w-5 mr-2" />
-						Send Email
+						<a href="mailto:stenlieangelonathan@gmail.com">
+							<Mail className="h-5 w-5 mr-2" />
+							Send Email
+						</a>
 					</Button>
 				</motion.div>
 			</div>
