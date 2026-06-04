@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Briefcase, GraduationCap, Trophy } from 'lucide-react';
+import { useEasterEggStore } from '@/stores/easterEgg';
 
 const workExperience = [
     {
@@ -16,11 +17,12 @@ const workExperience = [
         ],
     },
     {
-        role: 'R&D Division Member',
+        role: 'Research and Development Member',
         company: 'HMIF UMN',
-        period: '2023 – 2024',
+        period: 'January 2024 – January 2025',
         points: [
-            'Led a web development project for an informatics student competition serving ~300 registrations.',
+            'Served as Project Manager for the CSS (Computer Science Shelter) website, a mandatory onboarding platform used by all incoming Informatics students.',
+            'Contributed as a frontend developer for the PPIF website, the official orientation platform for all new Informatics students.',
         ],
     },
 ];
@@ -28,7 +30,7 @@ const workExperience = [
 const education = {
     degree: 'Bachelor of Informatics',
     institution: 'Universitas Multimedia Nusantara',
-    period: '2022 – Present',
+    period: '2022 – 2026',
     detail: 'GPA 3.79',
 };
 
@@ -51,8 +53,10 @@ const itemVariants = {
 };
 
 export default function Experience() {
+    const { easterEgg } = useEasterEggStore();
+
     return (
-        <section id="experience" className="px-6 py-20">
+        <section id="experience" className="px-6 py-20 bg-white dark:bg-zinc-900">
             <div className="mx-auto max-w-6xl">
                 <motion.div
                     className="mb-16 text-center"
@@ -61,9 +65,13 @@ export default function Experience() {
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
                 >
-                    <h2 className="mb-4 text-3xl font-bold md:text-4xl">Experience</h2>
+                    <h2 className="mb-4 text-3xl font-bold md:text-4xl">
+                        {easterEgg ? 'Deeds of Valour' : 'Experience'}
+                    </h2>
                     <p className="mx-auto max-w-2xl text-gray-600 dark:text-gray-400">
-                        Work, education, and milestones that shaped how I build software.
+                        {easterEgg
+                            ? 'Battles fought, wisdom gained, and milestones that hath shaped mine craft.'
+                            : 'Work, education, and milestones that shaped how I build software.'}
                     </p>
                 </motion.div>
 

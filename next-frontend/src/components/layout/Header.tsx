@@ -3,9 +3,11 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Sun, Moon } from 'lucide-react';
+import { Sun, Moon, Undo2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
+import Image from 'next/image';
+import { useEasterEggStore } from '@/stores/easterEgg';
 
 export default function Header() {
     const navItems = ['Projects', 'About', 'Experience', 'Contact'];
@@ -15,6 +17,7 @@ export default function Header() {
 
     // Theme hook - GET RESOLVED THEME
     const { theme, setTheme, resolvedTheme } = useTheme();
+    const { easterEgg, setEasterEgg, watchdogs, setWatchdogs } = useEasterEggStore();
 
     // Smooth scroll hook
     const { scrollTo, scrollToTop } = useSmoothScroll();
@@ -91,10 +94,25 @@ export default function Header() {
                             {/* Logo */}
                             <motion.div
                                 whileHover={{ scale: 1.05 }}
-                                className="cursor-pointer text-xl font-bold text-gray-900 dark:text-zinc-50"
+                                className="cursor-pointer"
                                 onClick={() => scrollToTop()}
                             >
-                                <span className="text-blue-600 dark:text-blue-400">NAS</span>
+                                <Image
+                                    src="/logo.png"
+                                    alt="NAS"
+                                    width={40}
+                                    height={40}
+                                    className="h-10 w-auto"
+                                    style={{
+                                        filter: watchdogs
+                                            ? 'brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(150deg)'
+                                            : easterEgg
+                                                ? 'invert(1) sepia(0.8) saturate(4) hue-rotate(5deg)'
+                                                : mounted && resolvedTheme === 'dark'
+                                                    ? 'invert(1)'
+                                                    : 'none',
+                                    }}
+                                />
                             </motion.div>
 
                             {/* Desktop Navigation */}
@@ -119,17 +137,35 @@ export default function Header() {
                                 variant="ghost"
                                 size="icon"
                                 className="ml-4 text-gray-900 transition-colors duration-200 hover:bg-gray-100 dark:text-zinc-50 dark:hover:bg-gray-800"
-                                onClick={toggleTheme}
-                                aria-label={getThemeLabel()}
-                                title={getThemeLabel()}
+                                onClick={
+                                    watchdogs
+                                        ? () => setWatchdogs(false)
+                                        : easterEgg
+                                            ? () => setEasterEgg(false)
+                                            : toggleTheme
+                                }
+                                aria-label={
+                                    watchdogs
+                                        ? 'Exit Watch_Dogs mode'
+                                        : easterEgg
+                                            ? 'Exit Elden Ring mode'
+                                            : getThemeLabel()
+                                }
+                                title={
+                                    watchdogs
+                                        ? 'Exit Watch_Dogs mode'
+                                        : easterEgg
+                                            ? 'Exit Elden Ring mode'
+                                            : getThemeLabel()
+                                }
                             >
                                 <motion.div
-                                    key={`${theme}-${resolvedTheme}`} // Re-animate when either changes
+                                    key={watchdogs ? 'watchdogs' : easterEgg ? 'elden' : `${theme}-${resolvedTheme}`}
                                     initial={{ scale: 0.8, rotate: -90 }}
                                     animate={{ scale: 1, rotate: 0 }}
                                     transition={{ duration: 0.3 }}
                                 >
-                                    {getThemeIcon()}
+                                    {watchdogs || easterEgg ? <Undo2 className="h-5 w-5" /> : getThemeIcon()}
                                 </motion.div>
                             </Button>
                         </div>

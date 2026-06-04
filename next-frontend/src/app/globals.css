@@ -119,3 +119,281 @@
         @apply bg-background text-foreground;
     }
 }
+
+
+/* ─── Watch Dogs easter egg ─────────────────────────────────────────────── */
+@keyframes watchdogs-flash {
+    0%   { background: #ffffff; }
+    7%   { background: #000; }
+    14%  { background: #00d4ff; }
+    21%  { background: #000; }
+    28%  { background: rgba(255, 0, 60, 0.9); }
+    35%  { background: #000; }
+    42%  { background: #00d4ffee; }
+    49%  { background: rgba(255, 0, 60, 0.6); }
+    /* ── BSOD blue cut — stays until div unmounts ── */
+    67%  { background: #0033B3; }
+    100% { background: #0033B3; }
+}
+
+/* kills all transitions for one frame during watchdogs activation */
+body.wd-instant,
+body.wd-instant * {
+    transition: none !important;
+    animation-duration: 0s !important;
+}
+
+@keyframes wd-scanline {
+    0%   { top: -4px; opacity: 1; }
+    80%  { opacity: 1; }
+    100% { top: 100vh; opacity: 0; }
+}
+
+@keyframes wd-text-glitch {
+    0%,100% { transform: none; clip-path: none; }
+    20%     { transform: translate(-3px, 0); color: #00d4ff; clip-path: inset(10% 0 40% 0); }
+    40%     { transform: translate(3px, 0);  color: #ff4466; clip-path: inset(50% 0 5% 0); }
+    60%     { transform: translate(-1px, 0); clip-path: inset(25% 0 20% 0); }
+    80%     { transform: translate(2px, 0);  color: #00d4ff; clip-path: none; }
+}
+.wd-text-glitch {
+    animation: wd-text-glitch 0.4s steps(1, end) forwards;
+    position: relative;
+}
+
+.watchdogs,
+html.dark body.watchdogs,
+html body.watchdogs {
+    background-color: #000810 !important;
+    color: #a8d8e8 !important;
+}
+
+.watchdogs section,
+html.dark body.watchdogs section,
+html body.watchdogs section {
+    background-color: rgba(0, 8, 16, 0.82) !important;
+}
+
+.watchdogs h1, .watchdogs h2, .watchdogs h3, .watchdogs h4 {
+    color: #00d4ff !important;
+    letter-spacing: 0.04em;
+}
+
+.watchdogs header {
+    background-color: rgba(0, 8, 16, 0.95) !important;
+    border-color: rgba(0, 212, 255, 0.2) !important;
+}
+.watchdogs header button,
+.watchdogs header nav button {
+    color: #00d4ff !important;
+}
+
+.watchdogs footer {
+    background-color: #000810 !important;
+    border-color: rgba(0, 212, 255, 0.2) !important;
+}
+
+.watchdogs .text-blue-600,
+.watchdogs .text-blue-400,
+.watchdogs .text-blue-500 {
+    color: #00d4ff !important;
+}
+.watchdogs .bg-blue-600  { background-color: #00d4ff !important; }
+.watchdogs .border-blue-500 { border-color: #00d4ff !important; }
+
+.watchdogs .text-gray-600,
+.watchdogs .text-gray-400,
+.watchdogs .text-gray-500  { color: #6a9aaa !important; }
+.watchdogs .text-gray-900,
+.watchdogs .text-zinc-900,
+.watchdogs .text-zinc-50   { color: #a8d8e8 !important; }
+
+.watchdogs .border-gray-200,
+.watchdogs .border-gray-300,
+.watchdogs .border-gray-600,
+.watchdogs .border-gray-800,
+.watchdogs .border-t,
+.watchdogs .border-b       { border-color: rgba(0,212,255,0.15) !important; }
+
+.watchdogs .bg-gray-100,
+.watchdogs .dark\:bg-gray-800,
+.watchdogs .dark\:bg-gray-700 { background-color: #001820 !important; color: #00d4ff !important; }
+
+.watchdogs .bg-zinc-50,
+.watchdogs .bg-zinc-100,
+.watchdogs .bg-zinc-900,
+.watchdogs .bg-zinc-950    { background-color: #000810 !important; }
+
+/* ─── Global smooth transitions for theme/easter-egg switches ──────────── */
+body,
+section,
+header,
+footer {
+    transition: background-color 0.7s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+@keyframes er-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* ─── All sections same bg in ER mode — no alternating pattern ─────────── */
+.elden-ring section,
+html.dark body.elden-ring section,
+html body.elden-ring section {
+    background-color: oklch(0.08 0.02 65) !important;
+}
+
+/* ─── Elden Ring grain — applied to section backgrounds, not as overlay ── */
+.elden-ring section,
+.elden-ring header,
+.elden-ring footer {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.55 0 0 0 0 0.42 0 0 0 0 0.1 0 0 0 0.25 0'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+    background-repeat: repeat;
+}
+
+/* ─── Elden Ring Easter Egg Theme ──────────────────────────────────────── */
+.elden-ring {
+    --background: oklch(0.08 0.02 65);
+    --foreground: oklch(0.84 0.09 78);
+    --card: oklch(0.11 0.025 65);
+    --card-foreground: oklch(0.84 0.09 78);
+    --popover: oklch(0.11 0.025 65);
+    --popover-foreground: oklch(0.84 0.09 78);
+    --primary: oklch(0.70 0.13 75);
+    --primary-foreground: oklch(0.08 0.02 65);
+    --secondary: oklch(0.17 0.04 65);
+    --secondary-foreground: oklch(0.84 0.09 78);
+    --muted: oklch(0.17 0.04 65);
+    --muted-foreground: oklch(0.62 0.08 75);
+    --accent: oklch(0.70 0.13 75);
+    --accent-foreground: oklch(0.08 0.02 65);
+    --border: oklch(0.38 0.09 68);
+    --input: oklch(0.38 0.09 68);
+    --ring: oklch(0.70 0.13 75);
+
+    font-family: var(--font-cinzel), 'Georgia', serif !important;
+    background-color: oklch(0.08 0.02 65) !important;
+    color: oklch(0.84 0.09 78) !important;
+    transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+.elden-ring *,
+.elden-ring section,
+.elden-ring main {
+    font-family: var(--font-cinzel), 'Georgia', serif !important;
+}
+
+/* Headings */
+.elden-ring h1,
+.elden-ring h2,
+.elden-ring h3,
+.elden-ring h4,
+.elden-ring h5 {
+    font-family: var(--font-cinzel), 'Georgia', serif !important;
+    color: oklch(0.72 0.13 75) !important;
+    letter-spacing: 0.06em;
+    text-shadow: 0 0 20px oklch(0.72 0.13 75 / 0.3);
+}
+
+/* Section backgrounds */
+.elden-ring .bg-zinc-50,
+.elden-ring .bg-zinc-900 {
+    background-color: oklch(0.08 0.02 65) !important;
+}
+.elden-ring .bg-gray-50 {
+    background-color: oklch(0.10 0.025 65) !important;
+}
+.elden-ring .bg-gray-100 {
+    background-color: oklch(0.15 0.035 68) !important;
+}
+
+/* Text */
+.elden-ring .text-gray-900,
+.elden-ring .text-zinc-900,
+.elden-ring .text-zinc-50 {
+    color: oklch(0.84 0.09 78) !important;
+}
+.elden-ring .text-gray-600,
+.elden-ring .text-gray-400 {
+    color: oklch(0.65 0.07 75) !important;
+}
+.elden-ring .text-gray-500 {
+    color: oklch(0.55 0.06 72) !important;
+}
+
+/* Gold accents (replace blue) */
+.elden-ring .text-blue-600,
+.elden-ring .text-blue-400,
+.elden-ring .text-blue-500 {
+    color: oklch(0.72 0.13 75) !important;
+}
+.elden-ring .bg-blue-600 {
+    background-color: oklch(0.52 0.12 70) !important;
+}
+.elden-ring .bg-blue-100 {
+    background-color: oklch(0.20 0.05 65) !important;
+}
+.elden-ring .border-blue-500 {
+    border-color: oklch(0.72 0.13 75) !important;
+}
+.elden-ring .dark\:bg-blue-900\/30 {
+    background-color: oklch(0.18 0.04 65) !important;
+}
+
+/* Borders */
+.elden-ring .border-gray-200,
+.elden-ring .border-gray-300,
+.elden-ring .border-gray-600,
+.elden-ring .border-gray-800,
+.elden-ring .border-t,
+.elden-ring .border-b {
+    border-color: oklch(0.38 0.09 68) !important;
+}
+
+/* Cards & dark elements */
+.elden-ring .dark\:bg-gray-700,
+.elden-ring .dark\:bg-gray-800 {
+    background-color: oklch(0.15 0.035 68) !important;
+}
+.elden-ring .dark\:bg-gray-800\/50 {
+    background-color: oklch(0.10 0.025 65) !important;
+}
+
+/* Header */
+.elden-ring header {
+    background-color: oklch(0.06 0.015 65 / 0.92) !important;
+    border-color: oklch(0.38 0.09 68) !important;
+}
+.elden-ring header button {
+    color: oklch(0.72 0.13 75) !important;
+}
+
+/* Footer */
+.elden-ring footer {
+    border-color: oklch(0.38 0.09 68) !important;
+}
+
+/* Timeline dot */
+.elden-ring .bg-blue-600.rounded-full,
+.elden-ring .dark\:bg-blue-400 {
+    background-color: oklch(0.72 0.13 75) !important;
+}
+
+/* Hover states */
+.elden-ring .hover\:text-blue-600:hover,
+.elden-ring .dark\:hover\:text-blue-400:hover {
+    color: oklch(0.85 0.14 78) !important;
+}
+
+/* Glowing gold line decoration */
+.elden-ring h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, oklch(0.72 0.13 75), transparent);
+    margin: 0.5rem auto 0;
+}
+

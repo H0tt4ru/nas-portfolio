@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Github, Linkedin, Mail, Download, MapPin } from "lucide-react";
+import { useEasterEggStore } from "@/stores/easterEgg";
 
 const contactMethods = [
 	{
@@ -33,10 +34,12 @@ const contactMethods = [
 ];
 
 export default function Contact() {
+	const { easterEgg } = useEasterEggStore();
+
 	return (
 		<section
 			id="contact"
-			className="py-20 px-6 bg-gray-50 dark:bg-gray-800/50"
+			className="py-20 px-6 bg-zinc-100 dark:bg-zinc-950"
 		>
 			<div className="max-w-4xl mx-auto">
 				<motion.div
@@ -47,11 +50,12 @@ export default function Contact() {
 					viewport={{ once: true }}
 				>
 					<h2 className="text-3xl md:text-4xl font-bold mb-4">
-						Let&#39;s Work Together
+						{easterEgg ? 'Seeketh Mine Audience' : "Let's Work Together"}
 					</h2>
 					<p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-						I&#39;m always interested in new opportunities and exciting
-						projects. Let&#39;s discuss how we can bring your ideas to life.
+						{easterEgg
+							? "I am ever open to opportunities most worthy and projects of great intrigue. Let us discourse on how mine abilities may serve thy vision."
+							: "I'm always interested in new opportunities and exciting projects. Let's discuss how we can bring your ideas to life."}
 					</p>
 				</motion.div>
 
@@ -62,7 +66,9 @@ export default function Contact() {
 						transition={{ duration: 0.6 }}
 						viewport={{ once: true }}
 					>
-						<h3 className="text-xl font-semibold mb-6">Get In Touch</h3>
+						<h3 className="text-xl font-semibold mb-6">
+							{easterEgg ? 'Send Word' : 'Get In Touch'}
+						</h3>
 						<div className="space-y-4">
 							{contactMethods.map((method, index) => (
 								<motion.div
@@ -124,21 +130,6 @@ export default function Contact() {
 							</CardContent>
 						</Card>
 
-						<Card>
-							<CardContent className="p-6">
-								<h4 className="font-semibold mb-2">Schedule a Call</h4>
-								<p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-									Let&#39;s discuss your project requirements and how I can
-									help.
-								</p>
-								<Button
-									variant="outline"
-									className="w-full font-mono bg-transparent"
-								>
-									Book a Meeting
-								</Button>
-							</CardContent>
-						</Card>
 					</motion.div>
 				</div>
 
@@ -150,17 +141,14 @@ export default function Contact() {
 					viewport={{ once: true }}
 				>
 					<p className="text-gray-600 dark:text-gray-400 mb-6">
-						Prefer email? Drop me a line and I&#39;ll get back to you within 24
-						hours.
+						{easterEgg
+							? "Prefer the written word? Send thy missive and I shall respond within a day's sun."
+							: "Prefer email? Drop me a line and I'll get back to you within 24 hours."}
 					</p>
-					<Button
-						size="lg"
-						className="font-mono"
-						asChild
-					>
+					<Button size="lg" className="font-mono" asChild>
 						<a href="mailto:stenlieangelonathan@gmail.com">
 							<Mail className="h-5 w-5 mr-2" />
-							Send Email
+							{easterEgg ? 'Dispatch Missive' : 'Send Email'}
 						</a>
 					</Button>
 				</motion.div>

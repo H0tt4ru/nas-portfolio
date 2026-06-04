@@ -45,7 +45,7 @@ export default function Blog() {
 	return (
 		<section
 			id="blog"
-			className="py-20 px-6"
+			className="py-20 px-6 bg-white dark:bg-zinc-900"
 		>
 			<div className="max-w-6xl mx-auto">
 				<motion.div

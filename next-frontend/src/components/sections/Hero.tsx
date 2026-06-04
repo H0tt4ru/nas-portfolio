@@ -5,12 +5,13 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react';
 import { useTheme } from 'next-themes';
-
+import { useEasterEggStore } from '@/stores/easterEgg';
 // Register GSAP plugins immediately
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
     const { resolvedTheme } = useTheme();
+    const { easterEgg } = useEasterEggStore();
     const heroRef = useRef<HTMLDivElement>(null);
     const layerRefs = useRef<(HTMLImageElement | null)[]>([]);
 
@@ -170,91 +171,132 @@ export default function Hero() {
             });
         };
 
-        // Start initialization after a frame to ensure DOM is ready
         requestAnimationFrame(initializeAnimations);
 
-        // Cleanup function
         return () => {
             ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
         };
-    }, [themeSuffix]); // Re-run when theme changes
+    }, [themeSuffix]);
+
+    useEffect(() => {
+        if (!easterEgg) return;
+
+        gsap.set('#er-hero-bg', { scale: 1.15, transformOrigin: 'center top' });
+
+        const tween = gsap.to('#er-hero-bg', {
+            scrollTrigger: {
+                trigger: '#hero',
+                start: 'top top',
+                end: '50% top',
+                scrub: true,
+            },
+            yPercent: 85,
+            ease: 'none',
+        });
+
+        return () => {
+            tween.scrollTrigger?.kill();
+        };
+    }, [easterEgg]);
 
     return (
         <section id="hero" className="relative h-[200vh] overflow-hidden" ref={heroRef}>
             <div className="sticky top-0 h-screen">
-                <Image
-                    src={`/parallax/${themeFolder}/layer-9-${themeSuffix}.webp`}
-                    alt={`layer 9 ${themeSuffix}`}
-                    fill
-                    className="object-cover"
-                    id={`layer-9-${themeSuffix}`}
-                    ref={(el) => {
-                        layerRefs.current[8] = el;
-                    }}
-                    quality={100}
-                />
-                <Image
-                    src={`/parallax/${themeFolder}/layer-8-${themeSuffix}.webp`}
-                    alt={`layer 8 ${themeSuffix}`}
-                    fill
-                    className="object-cover"
-                    id={`layer-8-${themeSuffix}`}
-                    ref={(el) => {
-                        layerRefs.current[7] = el;
-                    }}
-                    quality={100}
-                />
-                <Image
-                    src={`/parallax/${themeFolder}/layer-7-${themeSuffix}.webp`}
-                    alt={`layer 7 ${themeSuffix}`}
-                    fill
-                    className="object-cover"
-                    id={`layer-7-${themeSuffix}`}
-                    ref={(el) => {
-                        layerRefs.current[6] = el;
-                    }}
-                    quality={100}
-                />
-                <Image
-                    src={`/parallax/${themeFolder}/layer-6-${themeSuffix}.webp`}
-                    alt={`layer 6 ${themeSuffix}`}
-                    fill
-                    className="object-cover"
-                    id={`layer-6-${themeSuffix}`}
-                    ref={(el) => {
-                        layerRefs.current[5] = el;
-                    }}
-                    quality={100}
-                />
-                <Image
-                    src={`/parallax/${themeFolder}/layer-5-${themeSuffix}.webp`}
-                    alt={`layer 5 ${themeSuffix}`}
-                    fill
-                    className="object-cover"
-                    id={`layer-5-${themeSuffix}`}
-                    ref={(el) => {
-                        layerRefs.current[4] = el;
-                    }}
-                    quality={100}
-                />
-                <Image
-                    src={`/parallax/${themeFolder}/layer-4-${themeSuffix}.webp`}
-                    alt={`layer 4 ${themeSuffix}`}
-                    fill
-                    className="object-cover"
-                    id={`layer-4-${themeSuffix}`}
-                    ref={(el) => {
-                        layerRefs.current[3] = el;
-                    }}
-                    quality={100}
-                />
+                <div
+                    className={`transition-opacity duration-700 ${easterEgg ? 'opacity-0' : 'opacity-100'}`}
+                >
+                    <Image
+                        src={`/parallax/${themeFolder}/layer-9-${themeSuffix}.webp`}
+                        alt={`layer 9 ${themeSuffix}`}
+                        fill
+                        className="object-cover"
+                        id={`layer-9-${themeSuffix}`}
+                        ref={(el) => {
+                            layerRefs.current[8] = el;
+                        }}
+                        quality={100}
+                    />
+                    <Image
+                        src={`/parallax/${themeFolder}/layer-8-${themeSuffix}.webp`}
+                        alt={`layer 8 ${themeSuffix}`}
+                        fill
+                        className="object-cover"
+                        id={`layer-8-${themeSuffix}`}
+                        ref={(el) => {
+                            layerRefs.current[7] = el;
+                        }}
+                        quality={100}
+                    />
+                    <Image
+                        src={`/parallax/${themeFolder}/layer-7-${themeSuffix}.webp`}
+                        alt={`layer 7 ${themeSuffix}`}
+                        fill
+                        className="object-cover"
+                        id={`layer-7-${themeSuffix}`}
+                        ref={(el) => {
+                            layerRefs.current[6] = el;
+                        }}
+                        quality={100}
+                    />
+                    <Image
+                        src={`/parallax/${themeFolder}/layer-6-${themeSuffix}.webp`}
+                        alt={`layer 6 ${themeSuffix}`}
+                        fill
+                        className="object-cover"
+                        id={`layer-6-${themeSuffix}`}
+                        ref={(el) => {
+                            layerRefs.current[5] = el;
+                        }}
+                        quality={100}
+                    />
+                    <Image
+                        src={`/parallax/${themeFolder}/layer-5-${themeSuffix}.webp`}
+                        alt={`layer 5 ${themeSuffix}`}
+                        fill
+                        className="object-cover"
+                        id={`layer-5-${themeSuffix}`}
+                        ref={(el) => {
+                            layerRefs.current[4] = el;
+                        }}
+                        quality={100}
+                    />
+                    <Image
+                        src={`/parallax/${themeFolder}/layer-4-${themeSuffix}.webp`}
+                        alt={`layer 4 ${themeSuffix}`}
+                        fill
+                        className="object-cover"
+                        id={`layer-4-${themeSuffix}`}
+                        ref={(el) => {
+                            layerRefs.current[3] = el;
+                        }}
+                        quality={100}
+                    />
+                </div>
+
+                <div
+                    id="er-hero-bg"
+                    className="pointer-events-none absolute inset-0 transition-opacity duration-700"
+                    style={{ zIndex: 10, opacity: easterEgg ? 1 : 0 }}
+                >
+                    <Image
+                        src="/parallax/easter-egg/layer-1-easter-egg.webp"
+                        alt="Elden Ring"
+                        fill
+                        className="object-cover object-top"
+                        quality={100}
+                        priority
+                    />
+                    <div className="absolute inset-0 bg-black/40" />
+                </div>
+
                 <div
                     className="absolute inset-0 flex flex-col items-center justify-center text-center"
                     id="hero-text"
+                    style={easterEgg ? { zIndex: 20 } : undefined}
                 >
                     <div className="mb-6">
                         <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                            Hello, I&apos;m
+                            {easterEgg ? 'Hail, Tarnished, for I am' : "Hello, I'm"}
                         </span>
                     </div>
 
@@ -263,47 +305,52 @@ export default function Hero() {
                     </h1>
 
                     <p className="mx-auto mb-8 max-w-2xl text-xl text-gray-600 md:text-2xl dark:text-gray-400">
-                        I build for the web. Full-stack developer crafting digital experiences with
-                        modern technologies.
+                        {easterEgg
+                            ? 'A warrior of backend, mobile, and full-stack arts — forging worthy software for teams most valiant.'
+                            : 'Backend, mobile, full-stack — building real products for real teams.'}
                     </p>
                 </div>
-                <Image
-                    src={`/parallax/${themeFolder}/layer-3-${themeSuffix}.webp`}
-                    alt={`layer 3 ${themeSuffix}`}
-                    fill
-                    className="object-cover"
-                    id={`layer-3-${themeSuffix}`}
-                    ref={(el) => {
-                        layerRefs.current[2] = el;
-                    }}
-                    quality={100}
-                    unoptimized={true}
-                />
+                <div
+                    className={`transition-opacity duration-700 ${easterEgg ? 'opacity-0' : 'opacity-100'}`}
+                >
+                    <Image
+                        src={`/parallax/${themeFolder}/layer-3-${themeSuffix}.webp`}
+                        alt={`layer 3 ${themeSuffix}`}
+                        fill
+                        className="object-cover"
+                        id={`layer-3-${themeSuffix}`}
+                        ref={(el) => {
+                            layerRefs.current[2] = el;
+                        }}
+                        quality={100}
+                        unoptimized={true}
+                    />
 
-                <Image
-                    src={`/parallax/${themeFolder}/layer-2-${themeSuffix}.webp`}
-                    alt={`layer 2 ${themeSuffix}`}
-                    fill
-                    className="object-cover"
-                    id={`layer-2-${themeSuffix}`}
-                    ref={(el) => {
-                        layerRefs.current[1] = el;
-                    }}
-                    quality={100}
-                    unoptimized={true}
-                />
-                <Image
-                    src={`/parallax/${themeFolder}/layer-1-${themeSuffix}.webp`}
-                    alt={`layer 1 ${themeSuffix}`}
-                    fill
-                    className="object-cover"
-                    id={`layer-1-${themeSuffix}`}
-                    ref={(el) => {
-                        layerRefs.current[0] = el;
-                    }}
-                    quality={100}
-                    unoptimized={true}
-                />
+                    <Image
+                        src={`/parallax/${themeFolder}/layer-2-${themeSuffix}.webp`}
+                        alt={`layer 2 ${themeSuffix}`}
+                        fill
+                        className="object-cover"
+                        id={`layer-2-${themeSuffix}`}
+                        ref={(el) => {
+                            layerRefs.current[1] = el;
+                        }}
+                        quality={100}
+                        unoptimized={true}
+                    />
+                    <Image
+                        src={`/parallax/${themeFolder}/layer-1-${themeSuffix}.webp`}
+                        alt={`layer 1 ${themeSuffix}`}
+                        fill
+                        className="object-cover"
+                        id={`layer-1-${themeSuffix}`}
+                        ref={(el) => {
+                            layerRefs.current[0] = el;
+                        }}
+                        quality={100}
+                        unoptimized={true}
+                    />
+                </div>
             </div>
         </section>
     );
