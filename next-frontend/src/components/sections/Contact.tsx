@@ -123,9 +123,11 @@ export default function Contact() {
 									Get a detailed overview of my experience, skills, and
 									projects.
 								</p>
-								<Button className="w-full font-mono">
-									<Download className="h-4 w-4 mr-2" />
-									Download CV
+								<Button className="w-full font-mono" asChild>
+									<a href="/file/CV.pdf" target="_blank" rel="noopener noreferrer">
+										<Download className="h-4 w-4 mr-2" />
+										Download CV
+									</a>
 								</Button>
 							</CardContent>
 						</Card>
